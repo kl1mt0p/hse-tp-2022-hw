@@ -54,18 +54,16 @@ def find_incomplete():
 
 
 def find_by_name():
-    name_parts = input('Введите имя: ').split()
+    req = input('Введите имя: ').lower()
 
     print('Результаты поиска: ')
 
     res1 = []
     for obj in book:
-        mas = obj.name.split()
-        for part1 in name_parts:
-            for part2 in mas:
-                if part2.__contains__(part1):
-                    st = f'Имя: {obj.name}, Тел.: {obj.phone}, Почта: {obj.mail}'
-                    res1.append(st)
+        fio = obj.name.lower()
+        if fio.__contains__(req):
+            st = f'Имя: {obj.name}, Тел.: {obj.phone}, Почта: {obj.mail}'
+            res1.append(st)
 
     res2 = set(res1)
     for val in res2:
