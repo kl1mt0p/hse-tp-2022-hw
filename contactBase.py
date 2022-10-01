@@ -54,21 +54,15 @@ def find_incomplete():
 
 
 def find_by_name():
-    req = input('Введите имя: ').lower()
-
-    print('Результаты поиска: ')
-
-    res1 = []
+    surname = input('Введите фамилию: ').lower()
+    name = input('Введите имя: ').lower()
+    patronymic = input('Введите отчество: ').lower()
     for obj in book:
-        fio = obj.name.lower()
-        if fio.__contains__(req):
-            st = f'Имя: {obj.name}, Тел.: {obj.phone}, Почта: {obj.mail}'
-            res1.append(st)
-
-    res2 = set(res1)
-    for val in res2:
-        print(val)
-    print()
+        name_parts = obj.name.lower().split()
+        if surname.__contains__(name_parts[0]):
+            if name.__contains__(name_parts[1]):
+                if patronymic.__contains__(name_parts[2]):
+                    print(f'Имя: {obj.name}, Тел.: {obj.phone}, Почта: {obj.mail}')
 
 
 def show_contact_list():
@@ -126,6 +120,7 @@ def make_acton():
         print(f'{val}) {actions[val]}')
 
     action = int(input('Введите номер выбранной функции: '))
+    print()
 
     if action == 1:
         show_contact_list()
