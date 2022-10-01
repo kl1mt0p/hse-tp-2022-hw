@@ -54,15 +54,18 @@ def find_incomplete():
 
 
 def find_by_name():
-    surname = input('Введите фамилию: ').lower()
-    name = input('Введите имя: ').lower()
-    patronymic = input('Введите отчество: ').lower()
+    surname = input('Введите фамилию: ').lower().strip()
+    name = input('Введите имя: ').lower().strip()
+    patronymic = input('Введите отчество: ').lower().strip()
+    print()
+    print('Результаты поиска по ФИО: ')
     for obj in book:
         name_parts = obj.name.lower().split()
-        if surname.__contains__(name_parts[0]):
-            if name.__contains__(name_parts[1]):
-                if patronymic.__contains__(name_parts[2]):
+        if name_parts[0].strip().__contains__(surname):
+            if name_parts[1].strip().__contains__(name):
+                if name_parts[2].strip().__contains__(patronymic):
                     print(f'Имя: {obj.name}, Тел.: {obj.phone}, Почта: {obj.mail}')
+    print()
 
 
 def show_contact_list():
