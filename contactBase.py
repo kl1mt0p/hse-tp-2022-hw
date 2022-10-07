@@ -45,11 +45,29 @@ def find_by_mail():
 
 
 def find_incomplete():
-    print('Результаты поиска неполных контактов:')
+    print('Список критериев поиска:')
+    funcs = {1: 'Отсутствует только телефон', 2: 'Отсутствует только почта', 3: 'Отсутствует и телефон, и почта', 4: 'Отсутствует ровно 1 поле'}
+    for val in funcs:
+        print(f'{val}) {funcs[val]}')
 
-    for obj in book:
-        if obj.phone == 'Отсутствует' or obj.mail == 'Отсутствует':
-            print(f'Имя: {obj.name}, Тел.: {obj.phone}, Почта: {obj.mail}')
+    search = int(input('По какому критерию мы ищем? Введите номер выбранного критерия: '))
+    print('Результаты поиска неполных контактов:')
+    if search == 1:
+        for obj in book:
+            if obj.phone == 'Отсутствует' and obj.mail != 'Отсутствует':
+                print(f'Имя: {obj.name}, Тел.: {obj.phone}, Почта: {obj.mail}')
+    elif search == 2:
+        for obj in book:
+            if obj.mail == 'Отсутствует' and obj.phone != 'Отсутствует':
+                print(f'Имя: {obj.name}, Тел.: {obj.phone}, Почта: {obj.mail}')
+    elif search == 3:
+        for obj in book:
+            if obj.phone == 'Отсутствует' and obj.mail == 'Отсутствует':
+                print(f'Имя: {obj.name}, Тел.: {obj.phone}, Почта: {obj.mail}')
+    elif search == 4:
+        for obj in book:
+            if obj.phone == 'Отсутствует' and obj.mail != 'Отсутствует' or obj.phone != 'Отсутствует' and obj.mail == 'Отсутствует':
+                print(f'Имя: {obj.name}, Тел.: {obj.phone}, Почта: {obj.mail}')
     print()
 
 
@@ -122,6 +140,7 @@ def make_acton():
         print(f'{val}) {actions[val]}')
 
     action = int(input('Введите номер выбранной функции: '))
+    print()
 
     if action == 1:
         show_contact_list()
