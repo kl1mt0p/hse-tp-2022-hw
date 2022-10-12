@@ -85,7 +85,6 @@ def find_by_name():
                     print(f'Имя: {obj.name}, Тел.: {obj.phone}, Почта: {obj.mail}')
     print()
 
-
 def show_contact_list():
     print('Список ваших контактов:')
     for i, obj in enumerate(book, start=1):
