@@ -1,0 +1,39 @@
+name: kl1mt0p
+on:
+  push:
+    branches: [ "develop" ]
+  workflow_dispatch:
+
+jobs:
+  first_tg:
+    name: run_tests
+    runs-on: ubuntu-latest
+    steps:
+    - name: send_message        
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TG_SEND }}
+        token: ${{ secrets.TG_TOKEN }}
+        message: |
+          ${{ github.actor }} created commit:
+          Commit message: ${{ github.event.commits[0].message }} 
+  
+  tests_main:
+    name: tests
+    runs-on: ubuntu-latest
+    needs: first_tg
+    steps:
+      - name: Tests
+        uses: actions/checkout@v3
+      - run: |
+          cd $GITHUB_WORKSPACE
+          python3 -m unittest functions_test.Tests
+      - name: send_message
+        if: ${{ always() }}
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TG_SEND }}
+          token: ${{ secrets.TG_TOKEN }}
+          message: |
+            Результат выполнения тестов:
+            ${{ job.status }}
