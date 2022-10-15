@@ -1,0 +1,32 @@
+name: kl1mt0p_test
+on:  
+  push: 
+    branches: [ "develop" ] 
+  pull_request: 
+    branches: [ "develop" ] 
+  workflow_dispatch: 
+
+jobs: 
+  build: 
+    runs-on: ubuntu-latest 
+
+    steps: 
+      - uses: actions/checkout@v3  
+      - name: main_test
+        run: python -m unittest functions_test.py 
+      - name: fail 
+        uses: appleboy/telegram-action@master 
+        if: failure() 
+        with: 
+          to: ${{ secrets.TELEGRAM_TO }} 
+          token: ${{ secrets.TELEGRAM_TOKEN }} 
+          message: | 
+               Вы где то налажали :(
+      - name: ok 
+        uses: appleboy/telegram-action@master 
+        if: success() 
+        with: 
+          to: ${{ secrets.TELEGRAM_TO }} 
+          token: ${{ secrets.TELEGRAM_TOKEN }} 
+          message: | 
+            Вы справились юхууууу
