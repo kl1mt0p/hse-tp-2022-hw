@@ -1,81 +1,32 @@
-name: hse_tp_hw_2022_DK
-on:
-  pull_request:
-  push:
-  workflow_dispatch:
+name: kl1mt0p_test
+on:  
+  push: 
+    branches: [ "develop" ] 
+  pull_request: 
+    branches: [ "develop" ] 
+  workflow_dispatch: 
 
-jobs:
-  create_tg:
-    name: create_tg
-    runs-on: ubuntu-latest
-    steps:
-    - name: send_message       
-      uses: appleboy/telegram-action@master
-      with:
-        to: ${{ secrets.TG_SEND }}
-        token: ${{ secrets.TG_TOKEN }}
-        message: |
-          ${{ github.actor }} created commit:
-          Commit message: ${{ github.event.commits[0].message }} 
-  
-  func_test:
-    name: running_main_test
-    runs-on: ubuntu-latest
-    needs: create_tg
-    steps:
-      - name: func_test
-        uses: actions/checkout@v3
-      - run: |
-          cd $GITHUB_WORKSPACE
-          python3 -m unittest functions_test.CorrectTest
-      - name: Tg_send_res_main
-        if: ${{ always() }}
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TG_SEND }}
-          token: ${{ secrets.TG_TOKEN }}
-          message: |
-            Результат выполнения main_test:
-            ${{ job.status }}
-  
-      
- 
-  speed_test:
-    name: running_speed_test
-    runs-on: ubuntu-latest
-    needs: create_tg
-    steps:
-      - name: speed_test
-        uses: actions/checkout@v3
-      - run: |
-          cd $GITHUB_WORKSPACE
-          python3 -m unittest speed_test.SpeedTest
-        if: ${{ always() }}
-      - name: Tg_send_res_other        
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TG_SEND }}
-          token: ${{ secrets.TG_TOKEN }}
-          message: |
-            Результат выполнения speed_test:
-            ${{ job.status }}
-            
-  empty_test:
-    name: running_empty_test
-    runs-on: ubuntu-latest
-    needs: create_tg
-    steps:
-      - name: empty_test
-        uses: actions/checkout@v3
-      - run: |
-          cd $GITHUB_WORKSPACE
-          python3 -m unittest empty_test.EmptyTest
-        if: ${{ always() }}
-      - name: Tg_send_res_empty        
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TG_SEND }}
-          token: ${{ secrets.TG_TOKEN }}
-          message: |
-            Результат выполнения empty_test:
-            ${{ job.status }}
+jobs: 
+  build: 
+    runs-on: ubuntu-latest 
+
+    steps: 
+      - uses: actions/checkout@v3  
+      - name: main_test
+        run: echo 1.txt | python -m unittest functions_test.py 
+      - name: fail 
+        uses: appleboy/telegram-action@master 
+        if: failure() 
+        with: 
+          to: ${{ secrets.TELEGRAM_TO }} 
+          token: ${{ secrets.TELEGRAM_TOKEN }} 
+          message: | 
+               Вы где то налажали :(
+      - name: ok 
+        uses: appleboy/telegram-action@master 
+        if: success() 
+        with: 
+          to: ${{ secrets.TELEGRAM_TO }} 
+          token: ${{ secrets.TELEGRAM_TOKEN }} 
+          message: | 
+            Вы справились юхууууу
