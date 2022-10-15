@@ -11,7 +11,9 @@ jobs:
     runs-on: ubuntu-latest 
 
     steps: 
-      - uses: actions/checkout@v3  
+      - uses: actions/checkout@v3 
+      - name: open dir
+        run: cd $GITHUB_WORKSPACE
       - name: main_test
         run: echo numbers1.txt | python -m unittest functions_test.py | python -m unittest empty_test.py | python -m unittest speed_test.py
       - name: fail 
