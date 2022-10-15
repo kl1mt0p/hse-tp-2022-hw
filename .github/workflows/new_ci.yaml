@@ -13,7 +13,7 @@ jobs:
     steps: 
       - uses: actions/checkout@v3  
       - name: main_test
-        run: echo numbers1.txt | python -m unittest functions_test.py | python -m unittest empty_test.py | python -m unittest speed_test.py
+        run: echo /Users/dmitriyklimov/Desktop/BI HSE 1st/ТП/hse-tp-2022-hw/numbers1.txt | python -m unittest functions_test.py | python -m unittest empty_test.py | python -m unittest speed_test.py
       - name: fail 
         uses: appleboy/telegram-action@master 
         if: failure() 
