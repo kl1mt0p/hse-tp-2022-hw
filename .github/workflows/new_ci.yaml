@@ -13,7 +13,7 @@ jobs:
     steps: 
       - uses: actions/checkout@v3  
       - name: main_test
-        run: echo 1.txt | python -m unittest functions_test.py 
+        run: python -m unittest functions_test.py 
       - name: fail 
         uses: appleboy/telegram-action@master 
         if: failure() 
