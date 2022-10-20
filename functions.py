@@ -1,5 +1,7 @@
 #Функции для поиска минимума/максимума, суммы и произведения числе в исходном файле
 
+from cmath import inf
+
 name = input('Введите название файла в формате <название.расширение>: ')
 with open(f'{name}', 'r') as file:
     numbers = [int(val) for val in file.readline().split()]
@@ -8,7 +10,7 @@ with open(f'{name}', 'r') as file:
 def _min(mas):
     if len(mas) == 0:
         return 'Пустой файл'
-    minn = 10*99
+    minn = inf
     for val in mas:
         if val < minn:
             minn = val
@@ -17,7 +19,7 @@ def _min(mas):
 def _max(mas):
     if len(mas) == 0:
         return 0
-    maxx = -10*99
+    maxx = -inf
     for val in mas:
         if val > maxx:
             maxx = val
