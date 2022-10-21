@@ -15,14 +15,14 @@ jobs:
       - name: open dir
         run: cd $GITHUB_WORKSPACE
       - name: main_test
-        run: echo "numbers1.txt" | python -m unittest functions_test.py | python -m unittest empty_test.py | python -m unittest speed_test.py | Python functions_test.py >> report1.txt | Python empty_test.py >> report2.txt | Python speed_test.py >> report3.txt
+        run: echo "numbers1.txt" | python -m unittest functions_test.py | python -m unittest empty_test.py | python -m unittest speed_test.py | Python functions_test.py >> report1.txt
       - name: fail 
         uses: appleboy/telegram-action@master 
         if: failure() 
         with: 
           to: ${{ secrets.TELEGRAM_TO }} 
           token: ${{ secrets.TELEGRAM_TOKEN }} 
-          document: report1.txt | report2.txt | report3.txt
+          document: report1.txt
           message: | 
                Вы где то налажали :(
       - name: ok 
