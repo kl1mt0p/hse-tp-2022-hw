@@ -2,7 +2,7 @@
 
 from cmath import inf
 
-name = input()
+name = input('Введите название файла: ')
 with open(f'{name}', 'r') as file:
     numbers = [int(val) for val in file.readline().split()]
 
