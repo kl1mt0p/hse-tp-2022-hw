@@ -1,4 +1,8 @@
 import matplotlib.pyplot as plt
 
-def draw_plot(x: str, y: int):
-    for item in range(y):
+
+def draw_plot(x: list, y: int):
+    plt.plot(x)
+    plt.show()
+    plt.pause(y)
+
