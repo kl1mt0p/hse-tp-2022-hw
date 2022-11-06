@@ -1,4 +1,4 @@
-#Функции для поиска минимума/максимума, суммы и произведения числе в исходном файле
+# Функции для поиска минимума/максимума, суммы и произведения числе в исходном файле
 
 from cmath import inf
 
@@ -16,6 +16,7 @@ def _min(mas):
             minn = val
     return minn
 
+
 def _max(mas):
     if len(mas) == 0:
         return 0
@@ -25,6 +26,7 @@ def _max(mas):
             maxx = val
     return maxx
 
+
 def _sum(mas):
     if len(mas) == 0:
         return 'Пустой файл'
@@ -32,6 +34,7 @@ def _sum(mas):
     for val in mas:
         summ += val
     return summ
+
 
 def _mult(mas):
     if len(mas) == 0:
